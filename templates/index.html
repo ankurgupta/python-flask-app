@@ -8,13 +8,13 @@
   <!-- Tailwind (CDN) -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-900 text-slate-100">
+<body class="bg-gray-50 text-gray-800">
   <div class="max-w-6xl mx-auto p-6 space-y-6">
     <header class="flex items-center justify-between">
-      <h1 class="text-2xl font-semibold">CNN Receptive Field Designer</h1>
+      <h1 class="text-2xl font-semibold text-gray-900">CNN Receptive Field Designer</h1>
       <div class="flex gap-2">
-        <button id="exportJson" class="px-3 py-2 rounded-xl bg-slate-100 text-slate-900 shadow hover:opacity-90">Export JSON</button>
-        <label class="px-3 py-2 rounded-xl bg-slate-800 border border-slate-600 shadow cursor-pointer hover:bg-slate-700">
+        <button id="exportJson" class="px-3 py-2 rounded-xl bg-blue-600 text-white shadow hover:bg-blue-700 transition-colors">Export JSON</button>
+        <label class="px-3 py-2 rounded-xl bg-white border border-gray-300 shadow cursor-pointer hover:bg-gray-50 transition-colors">
           Import JSON
           <input id="importJson" type="file" accept="application/json" class="hidden" />
         </label>
@@ -23,32 +23,32 @@
 
     <!-- Image Settings -->
     <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bg-slate-800 rounded-2xl p-4 shadow border border-slate-600">
-        <h2 class="font-medium mb-3">Input Image</h2>
+      <div class="bg-white rounded-2xl p-4 shadow border border-gray-200">
+        <h2 class="font-medium mb-3 text-gray-900">Input Image</h2>
         <div class="grid grid-cols-3 gap-3">
           <div>
-            <label class="text-sm">Height</label>
-            <input id="inH" type="number" min="1" value="224" class="w-full mt-1 rounded-lg border border-slate-600 bg-slate-700 p-2 text-slate-100">
+            <label class="text-sm text-gray-700">Height</label>
+            <input id="inH" type="number" min="1" value="224" class="w-full mt-1 rounded-lg border border-gray-300 bg-white p-2 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
           </div>
           <div>
-            <label class="text-sm">Width</label>
-            <input id="inW" type="number" min="1" value="224" class="w-full mt-1 rounded-lg border border-slate-600 bg-slate-700 p-2 text-slate-100">
+            <label class="text-sm text-gray-700">Width</label>
+            <input id="inW" type="number" min="1" value="224" class="w-full mt-1 rounded-lg border border-gray-300 bg-white p-2 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
           </div>
           <div>
-            <label class="text-sm">Channels</label>
-            <input id="inC" type="number" min="1" value="3" class="w-full mt-1 rounded-lg border border-slate-600 bg-slate-700 p-2 text-slate-100">
+            <label class="text-sm text-gray-700">Channels</label>
+            <input id="inC" type="number" min="1" value="3" class="w-full mt-1 rounded-lg border border-gray-300 bg-white p-2 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
           </div>
         </div>
-        <p class="text-xs text-slate-400 mt-2">Change these and the whole stack recomputes.</p>
+        <p class="text-xs text-gray-500 mt-2">Change these and the whole stack recomputes.</p>
       </div>
 
       <!-- Add Layer -->
-      <div class="bg-slate-800 rounded-2xl p-4 shadow border border-slate-600 md:col-span-2">
-        <h2 class="font-medium mb-3">Add Layer</h2>
+      <div class="bg-white rounded-2xl p-4 shadow border border-gray-200 md:col-span-2">
+        <h2 class="font-medium mb-3 text-gray-900">Add Layer</h2>
         <div class="grid md:grid-cols-8 grid-cols-2 gap-3 items-end">
           <div class="md:col-span-2">
-            <label class="text-sm">Type</label>
-            <select id="layerType" class="w-full mt-1 rounded-lg border border-slate-600 bg-slate-700 p-2 text-slate-100">
+            <label class="text-sm text-gray-700">Type</label>
+            <select id="layerType" class="w-full mt-1 rounded-lg border border-gray-300 bg-white p-2 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
               <option value="conv">Conv2D</option>
               <option value="maxpool">MaxPool2D</option>
               <option value="avgpool">AvgPool2D</option>
@@ -56,64 +56,73 @@
             </select>
           </div>
           <div>
-            <label class="text-sm">Kernel</label>
-            <input id="k" type="number" min="1" value="3" class="w-full mt-1 rounded-lg border border-slate-600 bg-slate-700 p-2 text-slate-100">
+            <label class="text-sm text-gray-700">Kernel</label>
+            <input id="k" type="number" min="1" value="3" class="w-full mt-1 rounded-lg border border-gray-300 bg-white p-2 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
           </div>
           <div>
-            <label class="text-sm">Stride</label>
-            <input id="s" type="number" min="1" value="1" class="w-full mt-1 rounded-lg border border-slate-600 bg-slate-700 p-2 text-slate-100">
+            <label class="text-sm text-gray-700">Stride</label>
+            <input id="s" type="number" min="1" value="1" class="w-full mt-1 rounded-lg border border-gray-300 bg-white p-2 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
           </div>
           <div>
-            <label class="text-sm">Padding</label>
-            <input id="p" type="number" min="0" value="1" class="w-full mt-1 rounded-lg border border-slate-600 bg-slate-700 p-2 text-slate-100">
+            <label class="text-sm text-gray-700">Padding</label>
+            <input id="p" type="number" min="0" value="1" class="w-full mt-1 rounded-lg border border-gray-300 bg-white p-2 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
           </div>
           <div>
-            <label class="text-sm">Dilation</label>
-            <input id="d" type="number" min="1" value="1" class="w-full mt-1 rounded-lg border border-slate-600 bg-slate-700 p-2 text-slate-100">
+            <label class="text-sm text-gray-700">Dilation</label>
+            <input id="d" type="number" min="1" value="1" class="w-full mt-1 rounded-lg border border-gray-300 bg-white p-2 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
           </div>
           <div>
-            <label class="text-sm">Out Channels / Units</label>
-            <input id="outC" type="number" min="1" value="64" class="w-full mt-1 rounded-lg border border-slate-600 bg-slate-700 p-2 text-slate-100">
+            <label class="text-sm text-gray-700">Out Channels / Units</label>
+            <input id="outC" type="number" min="1" value="64" class="w-full mt-1 rounded-lg border border-gray-300 bg-white p-2 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
           </div>
           <div class="md:col-span-2">
-            <button id="addLayer" class="w-full px-3 py-2 rounded-xl bg-blue-600 text-white shadow hover:bg-blue-700">Add Layer</button>
+            <button id="addLayer" class="w-full px-3 py-2 rounded-xl bg-blue-600 text-white shadow hover:bg-blue-700 transition-colors">Add Layer</button>
           </div>
         </div>
-        <p class="text-xs text-slate-400 mt-2">For Pool layers, "Out Channels" is ignored. For FC, H×W collapses to 1×1.</p>
+        <p class="text-xs text-gray-500 mt-2">For Pool layers, "Out Channels" is ignored. For FC, H×W collapses to 1×1.</p>
       </div>
     </section>
 
     <!-- Architecture Table -->
-    <section class="bg-slate-800 rounded-2xl p-4 shadow border border-slate-600">
+    <section class="bg-white rounded-2xl p-4 shadow border border-gray-200">
       <div class="flex items-center justify-between mb-3">
-        <h2 class="font-medium">Architecture</h2>
+        <h2 class="font-medium text-gray-900">Architecture</h2>
         <div class="flex gap-2">
-          <button id="clearLayers" class="px-3 py-2 rounded-xl bg-slate-700 border border-slate-600 shadow hover:bg-slate-600">Clear</button>
-          <button id="exampleNet" class="px-3 py-2 rounded-xl bg-slate-700 border border-slate-600 shadow hover:bg-slate-600">Load Example</button>
+          <button id="clearLayers" class="px-3 py-2 rounded-xl bg-gray-100 border border-gray-300 text-gray-700 shadow hover:bg-gray-200 transition-colors">Clear</button>
+          <button id="exampleNet" class="px-3 py-2 rounded-xl bg-gray-100 border border-gray-300 text-gray-700 shadow hover:bg-gray-200 transition-colors">Load Example</button>
         </div>
       </div>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
-          <thead class="text-left bg-slate-700">
+          <thead class="text-left bg-gray-100">
             <tr>
-              <th class="p-2">#</th>
-              <th class="p-2">Layer</th>
-              <th class="p-2">k / s / p / d</th>
-              <th class="p-2">Out Shape (H×W×C)</th>
-              <th class="p-2">RF (H×W)</th>
-              <th class="p-2">Jump (H×W)</th>
-              <th class="p-2">Notes</th>
-              <th class="p-2"></th>
+              <th class="p-2 text-gray-700">#</th>
+              <th class="p-2 text-gray-700">Layer</th>
+              <th class="p-2 text-gray-700">k / s / p / d</th>
+              <th class="p-2 text-gray-700">Out Shape (H×W×C)</th>
+              <th class="p-2 text-gray-700">RF (H×W)</th>
+              <th class="p-2 text-gray-700">Jump (H×W)</th>
+              <th class="p-2 text-gray-700">Parameters</th>
+              <th class="p-2 text-gray-700">Notes</th>
+              <th class="p-2 text-gray-700"></th>
             </tr>
           </thead>
           <tbody id="archTbody"></tbody>
         </table>
       </div>
+      
+      <!-- Total Parameters Display -->
+      <div class="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-blue-700 font-medium">Total Parameters:</span>
+          <span id="totalParams" class="text-lg font-mono font-bold text-blue-600">0</span>
+        </div>
+      </div>
     </section>
 
     <!-- Footer -->
-    <footer class="text-xs text-slate-400">
-      Tip: RF grows by <code class="bg-slate-700 px-1 rounded">(d·(k−1)+1 − 1) × jump</code> per layer along each axis; jump multiplies by stride.
+    <footer class="text-xs text-gray-500">
+      Tip: RF grows by <code class="bg-gray-200 px-1 rounded text-gray-800">(d·(k−1)+1 − 1) × jump</code> per layer along each axis; jump multiplies by stride.
     </footer>
   </div>
 

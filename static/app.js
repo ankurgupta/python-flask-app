@@ -28,6 +28,7 @@
     let jH = 1, jW = 1;
 
     const rows = [];
+    let totalParams = 0;
 
     for (let i = 0; i < layers.length; i++) {
       const L = layers[i];
@@ -42,6 +43,10 @@
         const rfHn = rfH + (kEff - 1) * jH;
         const rfWn = rfW + (kEff - 1) * jW;
         const jHn = jH * L.s, jWn = jW * L.s;
+
+        // Calculate parameters: kernel weights + bias
+        const layerParams = (L.k * L.k * C * L.outC) + L.outC;
+        totalParams += layerParams;
 
         H = Hout; W = Wout; C = L.outC;
         rfH = rfHn; rfW = rfWn; jH = jHn; jW = jWn;
@@ -63,10 +68,22 @@
         // Flatten HxW -> 1x1, assume dense connects to all positions
         const rfHn = rfH + (H - 1) * jH;
         const rfWn = rfW + (W - 1) * jW;
+        
+        // Calculate parameters: input connections + bias
+        const layerParams = (H * W * C * L.outC) + L.outC;
+        totalParams += layerParams;
+        
         H = 1; W = 1; C = L.outC; // units
         rfH = rfHn; rfW = rfWn; /* jumps irrelevant after 1x1 but keep */
       }
 
+      let layerParams = 0;
+      if (L.type === "conv") {
+        layerParams = (L.k * L.k * (i === 0 ? asIntMin1(inC) : layers[i-1].outC || asIntMin1(inC)) * L.outC) + L.outC;
+      } else if (L.type === "fc") {
+        layerParams = (H * W * C * L.outC) + L.outC;
+      }
+      
       rows.push({
         idx: i+1,
         type: L.type,
@@ -75,17 +92,18 @@
         rf: `${rfH}×${rfW}`,
         jump: `${jH}×${jW}`,
         note,
+        params: layerParams
       });
     }
 
-    renderTable(rows);
+    renderTable(rows, totalParams);
   }
 
-  function renderTable(rows) {
+  function renderTable(rows, totalParams) {
     archTbody.innerHTML = "";
     rows.forEach((r, i) => {
       const tr = document.createElement("tr");
-      tr.className = "border-b hover:bg-slate-50";
+      tr.className = "border-b border-gray-200 hover:bg-gray-50";
       tr.innerHTML = `
         <td class="p-2">${r.idx}</td>
         <td class="p-2">${prettyType(layers[i])}</td>
@@ -93,9 +111,10 @@
         <td class="p-2 font-mono">${r.outShape}</td>
         <td class="p-2 font-mono">${r.rf}</td>
         <td class="p-2 font-mono">${r.jump}</td>
+        <td class="p-2 font-mono">${r.params.toLocaleString()}</td>
         <td class="p-2">${r.note}</td>
         <td class="p-2">
-          <button data-idx="${i}" class="del px-2 py-1 rounded-lg bg-white border shadow text-xs hover:bg-slate-100">Remove</button>
+          <button data-idx="${i}" class="del px-2 py-1 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs hover:bg-red-100 transition-colors">Remove</button>
         </td>
       `;
       archTbody.appendChild(tr);
@@ -109,6 +128,12 @@
         compute();
       };
     });
+
+    // Display total parameters
+    const totalParamsEl = document.getElementById('totalParams');
+    if (totalParamsEl) {
+      totalParamsEl.textContent = totalParams.toLocaleString();
+    }
   }
 
   function prettyType(L) {
